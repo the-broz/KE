@@ -1,0 +1,4 @@
+class MainMenuSubState extends MusicBeatState {
+
+    
+}

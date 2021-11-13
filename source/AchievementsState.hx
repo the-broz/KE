@@ -1,5 +1,6 @@
 package;
 
+import sys.ssl.Key;
 import flixel.addons.editors.ogmo.FlxOgmo3Loader.DecalData;
 import haxe.Timer;
 import haxe.CallStack.StackItem;
@@ -36,7 +37,7 @@ class AchievementsState extends MusicBeatState
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
     var descCrap:FlxText;
-
+	var heldFrames:Int = 0;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -158,8 +159,7 @@ class AchievementsState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-        descCrap.text = descs[curSelected];
-
+        descCrap.text = descs[curSelected] + " | HOLD [PERIOD] TO RESET THIS ACHIEVEMENT";
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -184,6 +184,49 @@ class AchievementsState extends MusicBeatState
 		{
 			FlxG.switchState(new MainMenuState());
 		}
+		if (FlxG.keys.pressed.PERIOD){
+			trace("HELD FOR: "+heldFrames);
+			heldFrames++;
+			if (heldFrames >= 400){
+				if (songs[curSelected] == "So Close"){
+					FlxG.save.data.close = false;
+				}
+				if (songs[curSelected] == "DOOM Slayer"){
+					FlxG.save.data.trueend = false;
+				}
+				if (songs[curSelected] == "Freaky On A Friday"){
+					FlxG.save.data.friday = false;
+				}
+				if (songs[curSelected] == "engineer gaming"){
+					FlxG.save.data.gaming = false;
+				}
+				if (songs[curSelected] == "skill issue"){
+					FlxG.save.data.skills = false;
+				}
+				iconArray[curSelected].animation.curAnim.curFrame = 0;
+			}
+		}else{
+				heldFrames = 0;
+			}
+
+		for (i in 0...iconArray.length)
+			{
+				if (i == 0 && FlxG.save.data.close == true){
+					iconArray[i].animation.curAnim.curFrame = 1;
+				}
+				if (i == 1 && FlxG.save.data.trueend == true){
+					iconArray[i].animation.curAnim.curFrame = 1;
+				}
+				if (i == 2 && FlxG.save.data.friday == true){
+					iconArray[i].animation.curAnim.curFrame = 1;
+				}
+				if (i == 3 && FlxG.save.data.gaming == true){
+					iconArray[i].animation.curAnim.curFrame = 1;
+				}
+				if (i == 4 && FlxG.save.data.skills == true){
+					iconArray[i].animation.curAnim.curFrame = 1;
+				}
+			}
 
 		if (accepted)
 		{
