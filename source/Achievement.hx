@@ -29,10 +29,10 @@ class Achievement extends FlxSpriteGroup {
 		add(name);
 		add(desc);
 		new FlxTimer().start(1,function(timer:FlxTimer){
-			FlxTween.tween(daDogDoing, {x: 25},2, {ease: FlxEase.bounceIn});
-			FlxTween.tween(icon, {x: 35},2, {ease: FlxEase.bounceIn});
-			FlxTween.tween(name, {x: 45},2, {ease: FlxEase.bounceIn});
-			FlxTween.tween(desc, {x: 45},2, {ease: FlxEase.bounceIn});
+			FlxTween.tween(daDogDoing, {x: FlxG.width + 20},2, {ease: FlxEase.bounceIn});
+			FlxTween.tween(icon, {x: FlxG.width + 20},2, {ease: FlxEase.bounceIn});
+			FlxTween.tween(name, {x: FlxG.width + 30},2, {ease: FlxEase.bounceIn});
+			FlxTween.tween(desc, {x: FlxG.width + 30},2, {ease: FlxEase.bounceIn});
             new FlxTimer().start(4, function(timer:FlxTimer)
                 {
                     remove(daDogDoing);
