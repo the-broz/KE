@@ -53,15 +53,7 @@ class MainMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-		FlxG.save.data.gaming = false;
-		if (Date.now().getDay() == 5){
-			trace("its friday yo!");
-			FlxG.save.data.friday = true;
-			FlxG.sound.play(Paths.sound('rareAchievement','achievements'));
-			var a:Achievement = new Achievement("Freaky On A Friday","Play the game on a friday.");
-			add(a);
-		}
-
+		
 		if (!FlxG.sound.music.playing)
 		{
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -95,6 +87,14 @@ class MainMenuState extends MusicBeatState
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
+		if (Date.now().getDay() == 5 && FlxG.save.data.friday == false){
+			var a:Achievement = new Achievement("Freaky On A Friday","Play the game on a friday.");
+			a.scrollFactor.set();
+			add(a);
+			FlxG.save.data.friday = true;
+			FlxG.sound.play(Paths.sound('rareAchievement','achievements'));
+			
+		}
 
 		var tex = Paths.getSparrowAtlas('FNF_main_menu_assets');
 

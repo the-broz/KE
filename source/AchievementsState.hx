@@ -24,8 +24,8 @@ using StringTools;
 
 class AchievementsState extends MusicBeatState
 {
-	var songs:Array<String> = ["So Close!","DOOM Slayer","Freaky On A Friday","engineer gaming"]; // DOOM Slayer is my favorite achivement by far.
-    var descs:Array<String> = ["Die within 5 seconds of the song ending.","Beat the week on DOOM mode.","Play the game on a friday.","engineer gaming."];
+	var songs:Array<String> = ["So Close","DOOM Slayer","Freaky On A Friday","engineer gaming","skill issue"]; // DOOM Slayer is my favorite achivement by far.
+    var descs:Array<String> = ["Die within 5 seconds of the song ending. (RESET KEY DOES NOT COUNT)","Beat the week on DOOM mode.","Play the game on a friday.","engineer gaming.", "skill issue :/"];
 
 	var selector:FlxText;
 	var curSelected:Int = 0;
@@ -106,6 +106,9 @@ class AchievementsState extends MusicBeatState
                 icon.animation.curAnim.curFrame = 1;
             }
 			if (i == 3 && FlxG.save.data.gaming == true){
+				icon.animation.curAnim.curFrame = 1;
+			}
+			if (i == 4 && FlxG.save.data.skills == true){
 				icon.animation.curAnim.curFrame = 1;
 			}
 
@@ -189,8 +192,8 @@ class AchievementsState extends MusicBeatState
 					trace('achivement: unlocked!!!');
 					
 				}else{
-					if(songs[curSelected] == "engineer gaming"){
-						//FlxG.save.data.gaming = true;
+					if(songs[curSelected] == "engineer gaming" && FlxG.save.data.gaming == false){
+						FlxG.save.data.gaming = true;
 						FlxG.sound.play(Paths.sound('gaming','achievements'));
 			
 			var a:Achievement = new Achievement("engineer gaming","engineer gaming");

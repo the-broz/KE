@@ -11,7 +11,7 @@ class GameOverSubstate extends MusicBeatSubstate
 {
 	var bf:Boyfriend;
 	var camFollow:FlxObject;
-
+	public static var closeAchieved:Bool = false;
 	var stageSuffix:String = "";
 
 	public function new(x:Float, y:Float)
@@ -39,7 +39,12 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		FlxG.sound.play(Paths.sound('fnf_loss_sfx' + stageSuffix));
 		Conductor.changeBPM(100);
-
+		if (closeAchieved == true){
+			var a:Achievement = new Achievement("So Close!","Die within 5 seconds of the song ending.");
+				a.scrollFactor.set();
+				add(a);
+				FlxG.sound.play(Paths.sound('defaultAchievement','achievements'));
+		}
 		// FlxG.camera.followLerp = 1;
 		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
 		FlxG.camera.scroll.set();

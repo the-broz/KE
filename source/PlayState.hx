@@ -1680,7 +1680,6 @@ class PlayState extends MusicBeatState
 		#if !debug
 		perfectMode = false;
 		#end
-
 		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
 
@@ -2131,6 +2130,12 @@ class PlayState extends MusicBeatState
 			persistentDraw = false;
 			paused = true;
 
+			if ((songLength - Conductor.songPosition) <= 5000 && songStarted == true && FlxG.save.data.close == false){
+				trace(songLength - Conductor.songPosition);
+				GameOverSubstate.closeAchieved = true;
+				FlxG.save.data.close = true;
+			}
+
 			vocals.stop();
 			FlxG.sound.music.stop();
 
@@ -2152,10 +2157,11 @@ class PlayState extends MusicBeatState
 					persistentUpdate = false;
 					persistentDraw = false;
 					paused = true;
-		
 					vocals.stop();
 					FlxG.sound.music.stop();
 		
+					
+
 					openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		
 					#if windows
@@ -3011,6 +3017,13 @@ class PlayState extends MusicBeatState
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
 				gf.playAnim('sad');
+			}
+			if (misses == 0 && (songLength - Conductor.songPosition) <= 10000){
+				var a:Achievement = new Achievement("skill issue :/","get better");
+			a.scrollFactor.set();
+			add(a);
+			FlxG.save.data.skills = true;
+			FlxG.sound.play(Paths.sound('rareAchievement','achievements'));
 			}
 			combo = 0;
 			misses++;
