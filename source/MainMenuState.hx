@@ -53,12 +53,13 @@ class MainMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-		FlxG.save.data.friday = false;
+		FlxG.save.data.gaming = false;
 		if (Date.now().getDay() == 5){
 			trace("its friday yo!");
 			FlxG.save.data.friday = true;
 			FlxG.sound.play(Paths.sound('rareAchievement','achievements'));
-			add(new Achievement("Freaky On A Friday","Play the game on a friday."));
+			var a:Achievement = new Achievement("Freaky On A Friday","Play the game on a friday.");
+			add(a);
 		}
 
 		if (!FlxG.sound.music.playing)

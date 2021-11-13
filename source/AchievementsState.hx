@@ -105,6 +105,9 @@ class AchievementsState extends MusicBeatState
             if (i == 2 && FlxG.save.data.friday == true){
                 icon.animation.curAnim.curFrame = 1;
             }
+			if (i == 3 && FlxG.save.data.gaming == true){
+				icon.animation.curAnim.curFrame = 1;
+			}
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
@@ -184,8 +187,17 @@ class AchievementsState extends MusicBeatState
 			if(iconArray[curSelected].animation.curAnim.curFrame == 1)
 				{
 					trace('achivement: unlocked!!!');
+					
 				}else{
+					if(songs[curSelected] == "engineer gaming"){
+						//FlxG.save.data.gaming = true;
+						FlxG.sound.play(Paths.sound('gaming','achievements'));
+			
+			var a:Achievement = new Achievement("engineer gaming","engineer gaming");
+			add(a);
+					}else{
 					camera.shake(0.035, 0.2);
+					}
 				}
 		}
 	}
