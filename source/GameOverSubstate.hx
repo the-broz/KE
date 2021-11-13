@@ -40,7 +40,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.sound.play(Paths.sound('fnf_loss_sfx' + stageSuffix));
 		Conductor.changeBPM(100);
 		if (closeAchieved == true){
-			var a:Achievement = new Achievement("So Close!","Die within 5 seconds of the song ending.");
+			var a:Achievement = new Achievement("So Close!","Die within 5 seconds of the song ending."); //f
 				a.scrollFactor.set();
 				add(a);
 				FlxG.sound.play(Paths.sound('defaultAchievement','achievements'));
