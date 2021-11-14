@@ -43,20 +43,6 @@ class AchievementsState extends MusicBeatState
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<AchievementIcons> = [];
-    /*public static function awardAchievement(dataName:String) {
-		if (dataName == "close" && FlxG.save.data.close == false){
-            FlxG.save.data.close = true;
-			FlxG.sound.play(Paths.sound('defaultAchievement','achievements'));
-			new Achievement("So Close!","Die within 5 seconds of the song ending.");
-        }
-        if (dataName == "friday" && FlxG.save.data.friday == false){
-            FlxG.save.data.friday = true;
-			FlxG.sound.play(Paths.sound('rareAchievement','achievements'));
-			new Achievement("Freaky On A Friday","Play the game on a friday.");
-        }
-		
-    } MAKING THIS BETTER HOLD ON
-	*/
 	override function create()
 	{
 		
