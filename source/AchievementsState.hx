@@ -25,8 +25,8 @@ using StringTools;
 
 class AchievementsState extends MusicBeatState
 {
-	var songs:Array<String> = ["So Close","DOOM Slayer","Freaky On A Friday","engineer gaming","skill issue"]; // DOOM Slayer is my favorite achivement by far.
-    var descs:Array<String> = ["Die within 5 seconds of the song ending. (RESET KEY DOES NOT COUNT)","Beat the week on DOOM mode.","Play the game on a friday.","engineer gaming.", "skill issue :/"];
+	var songs:Array<String> = ["So Close","DOOM Slayer","Freaky On A Friday","engineer gaming","skill issue"];
+    var descs:Array<String> = ["Die within 5 seconds of the song ending.","Beat the week on DOOM mode.","Play the game on a friday.","engineer gaming.", "skill issue :/"];
 
 	var selector:FlxText;
 	var curSelected:Int = 0;
