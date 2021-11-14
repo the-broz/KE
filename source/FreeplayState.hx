@@ -29,6 +29,8 @@ class FreeplayState extends MusicBeatState
 	var diffText:FlxText;
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
+	var descCrap:FlxText;
+
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -43,15 +45,6 @@ class FreeplayState extends MusicBeatState
 		{
 			var data:Array<String> = initSonglist[i].split(':');
 			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1]));
-		}
-
-		if (PlayState.didPFC == true && FlxG.save.data.god == false){
-			FlxG.save.data.god = true;
-			PlayState.didPFC = false;
-			FlxG.sound.play(Paths.sound('rareAchievements','achievements'));
-			var a:Achievement = new Achievement("Funkin' God!","you most likely play osu! or something. - Finish a song with 100% accuracy.");
-			a.scrollFactor.set();
-			add(a);
 		}
 		/* 
 			if (FlxG.sound.music != null)
@@ -105,6 +98,10 @@ class FreeplayState extends MusicBeatState
 		// scoreText.autoSize = false;
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 		// scoreText.alignment = RIGHT;
+		descCrap = new FlxText(5, FlxG.height + 40, 0, "PRESS SPACE TO LISTEN TO THIS SONG", 15);
+         descCrap.scrollFactor.set();
+         descCrap.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        
 
 		var scoreBG:FlxSprite = new FlxSprite(scoreText.x - 6, 0).makeGraphic(Std.int(FlxG.width * 0.35), 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
@@ -115,7 +112,7 @@ class FreeplayState extends MusicBeatState
 		add(diffText);
 
 		add(scoreText);
-
+		add(descCrap);
 		changeSelection();
 		changeDiff();
 
@@ -172,6 +169,18 @@ class FreeplayState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		if (FlxG.keys.justPressed.SPACE){
+			if (FlxG.sound.music.playing) FlxG.sound.music.stop(); return;
+				FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
+			}
+		if (PlayState.didPFC == true && FlxG.save.data.god == false){
+			FlxG.save.data.god = true;
+			PlayState.didPFC = false;
+			FlxG.sound.play(Paths.sound('rareAchievements','achievements'));
+			var a:Achievement = new Achievement("Funkin' God!","you most likely play osu! or something. - Finish a song with 100% accuracy.");
+			a.scrollFactor.set();
+			add(a);
+		}
 
 		if (FlxG.sound.music.volume < 0.7)
 		{
@@ -268,10 +277,6 @@ class FreeplayState extends MusicBeatState
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		// lerpScore = 0;
-		#end
-
-		#if PRELOAD_ALL
-		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end
 
 		var bullShit:Int = 0;

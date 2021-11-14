@@ -302,9 +302,9 @@ class PlayState extends MusicBeatState
 		persistentUpdate = true;
 		persistentDraw = true;
 
-		if (PlayState.didPFC == true && FlxG.save.data.god == false){
+		if (didPFC == true && FlxG.save.data.god == false){
 			FlxG.save.data.god = true;
-			PlayState.didPFC = false;
+			didPFC = false;
 			FlxG.sound.play(Paths.sound('rareAchievements','achievements'));
 			var a:Achievement = new Achievement("Funkin' God!","you most likely play osu! or something. - Finish a song with 100% accuracy.");
 			a.scrollFactor.set();
@@ -2428,7 +2428,7 @@ class PlayState extends MusicBeatState
 			FlxG.save.data.downscroll = false;
 		}
 
-		if (accuracy == 100 && (songLength - Conductor.songPosition) <= 600 && FlxG.save.data.god == false && storyDifficultyText == "Hard"){
+		if (accuracy == 100){
 			didPFC = true;
 		}
 
