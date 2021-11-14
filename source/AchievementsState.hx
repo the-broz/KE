@@ -25,8 +25,9 @@ using StringTools;
 
 class AchievementsState extends MusicBeatState
 {
-	var songs:Array<String> = ["So Close","DOOM Slayer","Freaky On A Friday","engineer gaming","skill issue"];
-    var descs:Array<String> = ["Die within 5 seconds of the song ending.","Beat the week on DOOM mode.","Play the game on a friday.","engineer gaming.", "skill issue :/"];
+	var songs:Array<String> = ["So Close","DOOM Slayer","Freaky On A Friday","engineer gaming","skill issue","Funkin God!"];
+    var descs:Array<String> = ["Die within 5 seconds of the song ending.","Beat the week on DOOM mode.","Play the game on a friday.","engineer gaming.", "skill issue :/","you most likely play osu! or something."];
+	var hidden:Array<Bool> = [false,false,false,false,true,true];
 
 	var selector:FlxText;
 	var curSelected:Int = 0;
@@ -75,6 +76,11 @@ class AchievementsState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
+			//HIDDEN ACHIEVEMENTS
+			if (hidden[i] == true && FlxG.save.data.god == false) return;
+			if (hidden[i] == true && FlxG.save.data.skills == false) return;
+
+
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i], true, false, true);
 			songText.isMenuItem = true;
 			songText.targetY = i;
@@ -96,6 +102,9 @@ class AchievementsState extends MusicBeatState
 				icon.animation.curAnim.curFrame = 1;
 			}
 			if (i == 4 && FlxG.save.data.skills == true){
+				icon.animation.curAnim.curFrame = 1;
+			}
+			if (i == 5 && FlxG.save.data.god == false){
 				icon.animation.curAnim.curFrame = 1;
 			}
 
@@ -168,7 +177,7 @@ class AchievementsState extends MusicBeatState
 		}
 		if (controls.BACK)
 		{
-			FlxG.switchState(new MainMenuState());
+			FlxG.switchState(new MainMenuSubState());
 		}
 		if (FlxG.keys.pressed.PERIOD){
 			trace("HELD FOR: "+heldFrames);
