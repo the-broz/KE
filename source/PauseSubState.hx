@@ -1,5 +1,6 @@
 package;
 
+import Options.BotPlay;
 import openfl.Lib;
 #if windows
 import llua.Lua;
@@ -45,7 +46,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(bg);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
-		levelInfo.text += PlayState.SONG.song;
+		levelInfo.text += PlayState.SONG.song + "\n Botplay:"+(FlxG.save.data.botplay ? "On" : "Off");
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
 		levelInfo.updateHitbox();

@@ -110,14 +110,11 @@ class MainMenuState extends MusicBeatState
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set();
 			menuItem.antialiasing = true;
-			if (firstStart)
-				FlxTween.tween(menuItem,{y: 60 + (i * 160)},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
+				FlxTween.tween(menuItem,{y: 60 + (i * 160) + 50},1 + (i * 0.25) ,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
 					{ 
 						finishedFunnyMove = true; 
 						changeItem();
 					}});
-			else
-				menuItem.y = 60 + (i * 160);
 		}
 
 		firstStart = false;
@@ -222,7 +219,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
+			spr.x = 20;
 		});
 	}
 	

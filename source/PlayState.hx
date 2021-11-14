@@ -1728,9 +1728,10 @@ class PlayState extends MusicBeatState
 
 			var p1 = luaModchart.getVar("strumLine1Visible",'bool');
 			var p2 = luaModchart.getVar("strumLine2Visible",'bool');
-			var hasdoneachievement = false;
-			if (accuracy >= 100.00 && (songLength - Conductor.songPosition) == 200 && FlxG.save.data.god == false && storyDifficultyText == "Hard"){
+			var hasdoneachievement:Bool = false;
+			if (accuracy == 100 && (songLength - Conductor.songPosition) <= 600 && FlxG.save.data.god == false && storyDifficultyText == "Hard" && hasdoneachievement == false){
 				FlxG.save.data.god = true;
+				hasdoneachievement = true;
 				FlxG.sound.play(Paths.sound('rareAchievements','achievements'));
 				var a:Achievement = new Achievement("Funkin' God!","you most likely play osu! or something. - Finish a song with 100% accuracy.");
 				add(a);
