@@ -45,6 +45,14 @@ class FreeplayState extends MusicBeatState
 			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1]));
 		}
 
+		if (PlayState.didPFC == true && FlxG.save.data.god == false){
+			FlxG.save.data.god = true;
+			PlayState.didPFC = false;
+			FlxG.sound.play(Paths.sound('rareAchievements','achievements'));
+			var a:Achievement = new Achievement("Funkin' God!","you most likely play osu! or something. - Finish a song with 100% accuracy.");
+			a.scrollFactor.set();
+			add(a);
+		}
 		/* 
 			if (FlxG.sound.music != null)
 			{

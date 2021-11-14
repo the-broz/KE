@@ -116,6 +116,7 @@ class PlayState extends MusicBeatState
 	private var camFollow:FlxObject;
 
 	private static var prevCamFollow:FlxObject;
+	public static var didPFC:Bool = false;
 
 	public static var strumLineNotes:FlxTypedGroup<FlxSprite> = null;
 	public static var playerStrums:FlxTypedGroup<FlxSprite> = null;
@@ -300,6 +301,15 @@ class PlayState extends MusicBeatState
 
 		persistentUpdate = true;
 		persistentDraw = true;
+
+		if (PlayState.didPFC == true && FlxG.save.data.god == false){
+			FlxG.save.data.god = true;
+			PlayState.didPFC = false;
+			FlxG.sound.play(Paths.sound('rareAchievements','achievements'));
+			var a:Achievement = new Achievement("Funkin' God!","you most likely play osu! or something. - Finish a song with 100% accuracy.");
+			a.scrollFactor.set();
+			add(a);
+		}
 
 		if (SONG == null)
 			SONG = Song.loadFromJson('tutorial');
@@ -1729,13 +1739,6 @@ class PlayState extends MusicBeatState
 			var p1 = luaModchart.getVar("strumLine1Visible",'bool');
 			var p2 = luaModchart.getVar("strumLine2Visible",'bool');
 			var hasdoneachievement:Bool = false;
-			if (accuracy == 100 && (songLength - Conductor.songPosition) <= 600 && FlxG.save.data.god == false && storyDifficultyText == "Hard" && hasdoneachievement == false){
-				FlxG.save.data.god = true;
-				hasdoneachievement = true;
-				FlxG.sound.play(Paths.sound('rareAchievements','achievements'));
-				var a:Achievement = new Achievement("Funkin' God!","you most likely play osu! or something. - Finish a song with 100% accuracy.");
-				add(a);
-			}
 
 			for (i in 0...4)
 			{
@@ -2423,6 +2426,10 @@ class PlayState extends MusicBeatState
 			FlxG.save.data.botplay = false;
 			FlxG.save.data.scrollSpeed = 1;
 			FlxG.save.data.downscroll = false;
+		}
+
+		if (accuracy == 100 && (songLength - Conductor.songPosition) <= 600 && FlxG.save.data.god == false && storyDifficultyText == "Hard"){
+			didPFC = true;
 		}
 
 		if (FlxG.save.data.fpsCap > 290)
