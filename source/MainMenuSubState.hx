@@ -45,6 +45,7 @@ class MainMenuSubState extends MusicBeatState
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
+	var black:FlxSprite;
 	public static var finishedFunnyMove:Bool = false;
 
 	override function create()
@@ -84,6 +85,11 @@ class MainMenuSubState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 		// magenta.scrollFactor.set();
+
+		black = new FlxSprite(-20,0).makeGraphic(Math.round(FlxG.width/4),Math.round(FlxG.height),FlxColor.BLACK);
+		black.scrollFactor.set(); 
+		black.angle = 35;
+		add(black);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -223,6 +229,7 @@ class MainMenuSubState extends MusicBeatState
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.x = 20;
+			spr.scale.set(.75,.75);
 		});
 	}
 	

@@ -1,5 +1,7 @@
 package;
 
+import flixel.system.frontEnds.SoundFrontEnd;
+import flixel.system.FlxSound;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -30,7 +32,7 @@ class FreeplayState extends MusicBeatState
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 	var descCrap:FlxText;
-
+	var musicPlaying:Bool;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -40,6 +42,7 @@ class FreeplayState extends MusicBeatState
 	override function create()
 	{
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
+		
 
 		for (i in 0...initSonglist.length)
 		{
@@ -170,8 +173,10 @@ class FreeplayState extends MusicBeatState
 	{
 		super.update(elapsed);
 		if (FlxG.keys.justPressed.SPACE){
-			if (FlxG.sound.music.playing) FlxG.sound.music.stop(); return;
-				FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
+			if (FlxG.sound.music.playing && musicPlaying == true) FlxG.sound.music.stop();
+			if (musicPlaying == true) FlxG.sound.play(Paths.music("freakyMenu")); musicPlaying = false; return;
+			FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
+			musicPlaying = true;
 			}
 		if (PlayState.didPFC == true && FlxG.save.data.god == false){
 			FlxG.save.data.god = true;
